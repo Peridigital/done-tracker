@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+.user-columns {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  text-align: center;
+}
+.site-background {
+  padding: 5px;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #222;
+  color: white;
+}
+.login-page{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.input{
+  font-size: 2em;
+  height: 60px;
+  width: 500px;
+  padding: 15px;
+  text-align: center;
+}
+.admin-input{
+  font-size: 2em;
+  height: 50px;
+  width: 500px;
+  padding: 10px;
+}
+.admin-page {
+  padding: 15px;
+}
+.button{
+  border: none;
+  color: white;
+  font-size: 1.4em;
+  padding: 15px;
+  background-color: #43E340;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 200ms;
+}
+.admin-buttons{
+  display: flex;
+  justify-content: space-around;
+  width: 500px;
+}
+.button:hover{
+  background-color: rgb(98, 238, 93);
+  
+}
+.login-header {
+  font-weight: 100;
+}
+.home-header {
+  text-align: center;
+  font-weight: 100;
+  font-size: 3em;
+  margin: 20px 0;
+}
+.status-button-row {
+  display: flex;
+  justify-content: space-around;
+  margin: 200px auto;
+  max-width: 1200px;
+
+}
+.status-button-row > div{
+  flex: 1;
+  display: flex;
+}
+.status-button {
+  width: 200px;
+  height: 200px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 200ms;
+  margin: auto;
+}
+.status-button > img {
+  width: 100%;
+  height: 100%;
+}
+.done {
+  background-color: #43E340;
+}
+.done:hover {
+  background-color: rgb(98, 238, 93);
+}
+.progress {
+  background-color: #E3C54A;
+}
+.progress:hover {
+  background-color: rgb(253, 221, 93);
+}
+.trouble {
+  background-color: #E34B43;
+}
+.trouble:hover {
+  background-color: rgb(248, 88, 82);
+}
+.active {
+  border: 15px double #222;
+  width: 300px;
+  height: 300px;
+}
