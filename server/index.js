@@ -36,7 +36,15 @@ app.post('/api/login', (req,res)=>{
     req.session.user = user
     res.send(user)
 })
-app.post('/api/question', (req,res)=>{
+
+const checkAdmin = (req, res, next) => {
+    if (req.session.isAuthed) {
+        return next();
+    }
+    res.status(403).json({ message: 'You are not authorized to perform this action' })
+}
+
+app.post('/api/question', checkAdmin, (req,res)=>{
     question = req.body.question
     users.forEach((e,i,a)=>{
         a[i].done = false
@@ -44,7 +52,7 @@ app.post('/api/question', (req,res)=>{
     })
     res.send({question, users})
 })
-console.log(process.env.PASSWORD);
+
 app.post('/api/admin', (req,res)=>{
     if(req.body.password === process.env.PASSWORD) {
         req.session.isAuthed = true
