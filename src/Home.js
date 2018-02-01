@@ -22,7 +22,7 @@ class Home extends Component {
         axios.get('/api/question').then(res=>{
             console.log(res);
             if(!res.data.question) {
-                this.setState({question: 'Nothing  yet!'})
+                this.setState({question: 'Nothing  yet!', user: res.data.user})
             } else {
                 this.setState({question: res.data.question, user: res.data.user})
             }
@@ -30,12 +30,12 @@ class Home extends Component {
         setInterval(()=>{
             axios.get('/api/question').then(res=>{
                 if(!res.data.question) {
-                    this.setState({question: 'Nothing  yet!'})
+                    this.setState({question: 'Nothing  yet!', user: res.data.user})
                 } else {
                     this.setState({question: res.data.question, user: res.data.user})
                 }
             })
-        }, 10000)
+        }, 3000)
     }
 
     indicateDone = () => {

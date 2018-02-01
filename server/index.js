@@ -2,6 +2,7 @@ const app = require('express')()
 const session = require('express-session')
 const bodyParser = require('body-parser')
 
+require('dotenv').config()
 app.use(bodyParser.json())
 app.use(session({
     secret: '1234124t13fd12edqa8d0hj;lw',
@@ -22,26 +23,7 @@ const port = 3001
 
 let question = ''
 let id = 0
-const users = [
-    {
-        name: 'Steve',
-        done: true,
-        trouble: false,
-        id: id++
-    },
-    {
-        name: 'Bill',
-        done: false,
-        trouble: true,
-        id: id++
-    },
-    {
-        name: 'Gene',
-        done: false,
-        trouble: false,
-        id: id++
-    },
-]
+const users = []
 
 app.post('/api/login', (req,res)=>{
     var user = {
@@ -61,6 +43,20 @@ app.post('/api/question', (req,res)=>{
         a[i].trouble = false
     })
     res.send({question, users})
+})
+console.log(process.env.PASSWORD);
+app.post('/api/admin', (req,res)=>{
+    if(req.body.password === process.env.PASSWORD) {
+        req.session.isAuthed = true
+        res.status(200).send(true)
+    } else {
+        res.status(403).send(false)
+    }
+})
+
+app.get('/api/admin', (req,res)=>{
+
+    res.status(200).send(req.session.isAuthed)
 })
 
 app.get('/api/question', (req,res)=>{

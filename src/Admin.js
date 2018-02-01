@@ -8,10 +8,14 @@ class Admin extends Component {
         this.state = {
             input: '',
             question: '',
-            users: []
+            users: [],
+            isAuthed: false
         }
     }
     componentDidMount(){
+        axios.get('/api/admin').then(res=>{
+            this.setState({isAuthed: res.data})
+        })
         axios.get('/api/question').then(res=>{
             console.log(res);
             if(!res.data.question) {
@@ -29,7 +33,7 @@ class Admin extends Component {
                     this.setState({question: res.data.question,  users: res.data.users})
                 }
             })
-        }, 10000)
+        }, 3000)
     }
 
     resetQuestion = ()=>{
@@ -44,6 +48,13 @@ class Admin extends Component {
         console.log('Submit');
         axios.post('api/question',{question: this.state.input}).then(res=>{
             this.setState({question: res.data.question, users: res.data.users, input: ''})
+        })
+    }
+    login = (e) => {
+        e.preventDefault()
+        console.log(this.state);
+        axios.post('/api/admin', {password: this.state.passwordInput}).then(res=>{
+            this.setState({isAuthed: res.data})
         })
     }
 
@@ -62,8 +73,11 @@ class Admin extends Component {
             }
         }
         return (
+        
             <div className='admin-page'>
-            <form onSubmit={this.submitQuestion}>
+            {this.state.isAuthed ?(
+                <div>
+                <form onSubmit={this.submitQuestion}>
 
                 <input className='admin-input' value={this.state.input} onChange={e=>this.setState({input: e.target.value})} />
                 <br />
@@ -100,6 +114,23 @@ class Admin extends Component {
                     ))}
                     </div>
                 </div>
+            </div>
+            ) :(
+                <div className='login-page'>
+                <div>
+                    <h1 className='login-header'>Please enter the password</h1>
+                    <form onSubmit={this.login}>
+
+                        <input type="password" className='input' onChange={e=>this.setState({passwordInput: e.target.value})} />
+                        <br />
+                        <button className='button' >Login</button>
+                    </form>
+                    
+                </div>
+
+            </div>
+            )}
+            
                 
             </div>
         );
